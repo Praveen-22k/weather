@@ -5,7 +5,7 @@ import "./Weather.css";
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 const Weather = () => {
-  const [city, setCity] = useState("Tirunelveli");
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
 
@@ -31,7 +31,7 @@ const Weather = () => {
       <div className="weather-container">
         <input
           className="search"
-          placeholder="Search city..."
+          placeholder="Search city/State..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && fetchWeather()}
