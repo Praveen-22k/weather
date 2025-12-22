@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./Weather.css";
 
@@ -10,32 +10,43 @@ const Weather = () => {
   const [error, setError] = useState("");
 
   const fetchWeather = async () => {
+    if (!city.trim()) {
+      setError("Please enter a city or state");
+      setWeather(null);
+      return;
+    }
+
     try {
       setError("");
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
       );
-      console.log(res);
       setWeather(res.data);
     } catch (err) {
       setError("City not found");
+      setWeather(null);
     }
   };
 
-  useEffect(() => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetchWeather();
-  }, []);
+  };
 
   return (
     <div className="weather-app">
       <div className="weather-container">
-        <input
-          className="search"
-          placeholder="Search city/State..."
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && fetchWeather()}
-        />
+        <form onSubmit={handleSubmit} className="search-form">
+          <input
+            className="search"
+            placeholder="Search city / state..."
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <button type="submit" className="btn-submit">
+            Search
+          </button>
+        </form>
 
         {error && <p className="error">{error}</p>}
 
