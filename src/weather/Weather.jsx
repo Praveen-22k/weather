@@ -28,25 +28,24 @@ const Weather = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchWeather();
-  };
-
   return (
     <div className="weather-app">
       <div className="weather-container">
-        <form onSubmit={handleSubmit} className="search-form">
+        <div className="search-form">
           <input
             className="search"
             placeholder="Search city / state..."
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") e.preventDefault();
+            }}
           />
-          <button type="submit" className="btn-submit">
+
+          <button className="btn-submit" onClick={fetchWeather}>
             Search
           </button>
-        </form>
+        </div>
 
         {error && <p className="error">{error}</p>}
 
