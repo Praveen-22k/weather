@@ -32,6 +32,7 @@ const Weather = () => {
     <div className="weather-app">
       <div className="weather-container">
         <div className="search-form">
+          <h1>Weather Checker</h1>
           <input
             className="search"
             placeholder="Search city / state..."
